@@ -2,8 +2,9 @@ steps:
   - id: 'build'
     name: 'gcr.io/cloud-builders/mvn'
     args: [
-        './mvnw',
-        'build'
+        'clean',
+        'package',
+        '-Dmaven.test.skip=true'
     ]
   - name: 'ubuntu'
     args: ['bash', 'ls']
@@ -15,3 +16,4 @@ steps:
     args:
       - 'build'
       - '--tag=gcr.io/$PROJECT_ID/$_PROJECT_NAME:$COMMIT_SHA'
+      - '.'
