@@ -6,6 +6,8 @@ steps:
         'package',
         '-Dmaven.test.skip=true'
     ]
+  - name: 'ubuntu'
+    dir: 'target'
   - id: 'docker build'
     name: 'gcr.io/cloud-builders/docker'
     args: [ 'build', '-t', 'gcr.io/$PROJECT_ID/$_PROJECT_NAME:$COMMIT_SHA', '.' ]
