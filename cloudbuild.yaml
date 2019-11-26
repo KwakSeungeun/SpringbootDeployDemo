@@ -5,15 +5,11 @@ steps:
         './mvnw',
         'build'
     ]
-  - name: ' bash'
-    args: [
-      'ls'
-    ]
-  - name: ' bash'
+  - name: 'ubuntu'
+    args: ['bash', 'ls']
+  - name: 'ubuntu'
     dir: 'target'
-    args: [
-        'ls'
-    ]
+    args: ['bash', 'ls']
   - id: 'docker build'
     name: 'gcr.io/cloud-builders/docker'
     args:
