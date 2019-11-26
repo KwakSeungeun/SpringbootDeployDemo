@@ -2,11 +2,20 @@ steps:
   - id: 'build'
     name: 'gcr.io/cloud-builders/mvn'
     args: [
-        'clean',
-        'package',
-        '-Dmaven.test.skip=true'
+        './mvnw',
+        'build'
+    ]
+  - name: ' bash'
+    args: [
+      'ls'
+    ]
+  - name: ' bash'
+    dir: 'target'
+    args: [
+        'ls'
     ]
   - id: 'docker build'
     name: 'gcr.io/cloud-builders/docker'
     args:
       - 'build'
+      - '--tag=gcr.io/$PROJECT_ID/$_PROJECT_NAME:$COMMIT_SHA'
