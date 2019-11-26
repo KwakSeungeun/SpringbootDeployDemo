@@ -6,11 +6,6 @@ steps:
         'package',
         '-Dmaven.test.skip=true'
     ]
-  - name: 'ubuntu'
-    args: ['bash', 'ls']
-  - name: 'ubuntu'
-    dir: 'target'
-    args: ['bash', 'ls']
   - id: 'docker build'
     name: 'gcr.io/cloud-builders/docker'
     args:
