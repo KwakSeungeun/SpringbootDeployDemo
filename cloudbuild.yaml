@@ -9,5 +9,5 @@ steps:
   - id: 'docker build'
     name: 'gcr.io/cloud-builders/docker'
     args: [ 'build', '-t', 'gcr.io/$PROJECT_ID/$COMMIT_SHA', '.' ]
-  - name: 'gcr.io/$PROJECT_ID/$COMMIT_SHA/docker'
+  - name: 'gcr.io/$PROJECT_ID/$COMMIT_SHA'
     args: ['run', 'busybox', 'echo', 'Hello, world!']
