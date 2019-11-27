@@ -25,14 +25,21 @@ steps:
     args: ['push', 'gcr.io/$PROJECT_ID/mainservice:$SHORT_SHA']
 
 #   Deploy to GKE
+#  - id : 'deploy'
+#    name: 'gcr.io/cloud-builders/gke-deploy'
+#    args:
+#      - 'run'
+#      - '--expose=8080'
+#      - '--image=gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA'
+#      - '--location=asia-northeast1-a'
+#      - '--cluster=uplus-poc-test'
+
   - id : 'deploy'
-    name: 'gcr.io/cloud-builders/gke-deploy'
-    args:
-      - 'run'
-      - '--expose=8080'
-      - '--image=gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA'
-      - '--location=asia-northeast1-a'
-      - '--cluster=uplus-poc-test'
+    name: 'gcr.io/cloud-builders/gcloud'
+    entrypoint: 'bash'
+    args: ['kubectl', 'create', 'deployment', 'hello-server', '--image=gcr.io/$PROJECT_ID/mainservice:$SHORT_SHA']
+
+
 options:
   env:
     - CLOUDSDK_COMPUTE_ZONE = asia-northeast1-a
