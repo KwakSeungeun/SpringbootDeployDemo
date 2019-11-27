@@ -31,8 +31,8 @@ steps:
       - 'run'
       - '--expose=8080'
       - '--image=gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA'
-      - '--location=$${CLOUDSDK_COMPUTE_ZONE}'
-      - '--cluster=$${CLOUDSDK_CONTAINER_CLUSTER}'
+      - '--location=asia-northeast1-a'
+      - '--cluster=uplus-poc-test'
 options:
   env:
     - CLOUDSDK_COMPUTE_ZONE = asia-northeast1-a
