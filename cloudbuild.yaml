@@ -26,13 +26,18 @@ steps:
 
   - id: 'cluster setting'
     name: 'gcr.io/cloud-builders/gcloud'
+    entrypoint: 'bash'
     args:
-      - 'container'
-      - 'clusters'
-      - 'get-credentials'
-      - 'uplus-poc-test'
-      - '--zone=asia-northeast1-a'
-      - '--project=springboot-deploy-test'
+      - '-c'
+      - |
+        gcloud container clusters get-credentials uplus-poc-test --zone=asia-northeast1-a --project=springboot-deploy-test
+
+#      - 'container'
+#      - 'clusters'
+#      - 'get-credentials'
+#      - 'uplus-poc-test'
+#      - '--zone=asia-northeast1-a'
+#      - '--project=springboot-deploy-test'
 
   - id : 'deploy'
     name: 'gcr.io/cloud-builders/gcloud'
