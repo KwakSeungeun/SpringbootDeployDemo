@@ -24,7 +24,7 @@ steps:
     name: 'gcr.io/cloud-builders/docker'
     args: ['push', 'gcr.io/$PROJECT_ID/mainservice:$SHORT_SHA']
 
-  - id: 'cluster setting'
+  - id: 'deploy'
     name: 'gcr.io/cloud-builders/gcloud'
     entrypoint: 'bash'
     args:
@@ -32,22 +32,17 @@ steps:
       - |
         gcloud container clusters get-credentials uplus-poc-test --zone=asia-northeast1-a --project=springboot-deploy-test
 
-#      - 'container'
-#      - 'clusters'
-#      - 'get-credentials'
-#      - 'uplus-poc-test'
-#      - '--zone=asia-northeast1-a'
-#      - '--project=springboot-deploy-test'
+        kubectl create deployment main-back --image=gcr.io/"$${PROJECT_ID}"/mainservice:"$${SHORT_SHA}"
 
-  - id : 'deploy'
-    name: 'gcr.io/cloud-builders/gcloud'
-    entrypoint: 'bash'
-    args: ['kubectl', 'create', 'deployment', 'main-back', '--image=gcr.io/$PROJECT_ID/mainservice:$SHORT_SHA']
-
-  - id: 'expose'
-    name: 'gcr.io/cloud-builders/gcloud'
-    entrypoint: 'bash'
-    args: ['kubectl', 'expose', 'deployment', 'main-back', '--type=LoadBalancer', '--port=80', '--target-port=8080']
+#  - id : 'deploy'
+#    name: 'gcr.io/cloud-builders/gcloud'
+#    entrypoint: 'bash'
+#    args: ['kubectl', 'create', 'deployment', 'main-back', '--image=gcr.io/$PROJECT_ID/mainservice:$SHORT_SHA']
+#
+#  - id: 'expose'
+#    name: 'gcr.io/cloud-builders/gcloud'
+#    entrypoint: 'bash'
+#    args: ['kubectl', 'expose', 'deployment', 'main-back', '--type=LoadBalancer', '--port=80', '--target-port=8080']
 
 
 options:
