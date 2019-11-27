@@ -39,7 +39,7 @@ steps:
       - 'get-credentials'
       - 'uplus-poc-test'
       - '--project "springboot-deploy-test"'
-      - '--zone ""'
+      - '--zone "asia-northeast1-a"'
 
 #   Deploy to GKE
 #  - id : 'deploy'
