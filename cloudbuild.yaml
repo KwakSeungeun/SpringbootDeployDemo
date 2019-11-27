@@ -1,4 +1,5 @@
 steps:
+#  프로젝트 build (*.jar 파일 생성)
   - id: 'build'
     name: 'gcr.io/cloud-builders/mvn'
     args: [
@@ -6,17 +7,23 @@ steps:
         'package',
         '-Dmaven.test.skip=true'
     ]
+#    Docker image 생성 (Dockerfile 에 작성된 환경을 image)
   - id: 'docker build'
     name: 'gcr.io/cloud-builders/docker'
-    args: [ 'build', '-t', 'gcr.io/$PROJECT_ID/$COMMIT_SHA', '.' ]
+    args: [ 'build', '-t', 'gcr.io/$PROJECT_ID/$BRANCH_NAME$:SHORT_SHA', '.' ]
+#    Docker image list
   - id: 'docker image list'
     name: 'gcr.io/cloud-builders/docker'
     args: [ 'images']
+#    Docker registry 에 push
   - id: 'publish'
     name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/$PROJECT_ID/$BRANCH_NAME$:SHORT_SHA']
+#    Registry list
+  - id: 'registry list'
+    name: 'gcr.io/cloud-builders/docker'
     entrypoint: 'bash'
-    args: ['-C', 'docker push gcr.io/$PROJECT_ID/$COMMIT_SHA:latest']
+    args: ['tree', 'registry']
 
 #  - name: 'gcr.io/$PROJECT_ID/$COMMIT_SHA' RUN SPRING PROJECT #Spring project image를 바로 실행시킴
-
 timeout: 1600s
