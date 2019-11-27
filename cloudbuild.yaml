@@ -26,12 +26,13 @@ steps:
 
 #   Deploy to GKE
   - id : 'deploy'
-    name: 'gcr.io/cloud-builders/gke-deploy:stable'
+    name: 'gcr.io/cloud-builders/gke-deploy'
     args:
-      - run
-      - --image=gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA
-      - --location=$${CLOUDSDK_COMPUTE_ZONE}
-      - --cluster=$${CLOUDSDK_CONTAINER_CLUSTER}
+      - 'run'
+      - '--expose=8080'
+      - '--image=gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA'
+      - '--location=$${CLOUDSDK_COMPUTE_ZONE}'
+      - '--cluster=$${CLOUDSDK_CONTAINER_CLUSTER}'
 options:
   env:
     - CLOUDSDK_COMPUTE_ZONE = asia-northeast1-a
