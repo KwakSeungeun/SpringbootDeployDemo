@@ -24,7 +24,8 @@ steps:
     name: 'gcr.io/cloud-builders/docker'
     args: ['push', 'gcr.io/$PROJECT_ID/mainservice:$SHORT_SHA']
 
-  - name: 'gcr.io/cloud-builders/gcloud'
+  - id : 'set project'
+    name: 'gcr.io/cloud-builders/gcloud'
     args: ['config', 'set', 'project', 'springboot-deploy-test']
 
   - id: 'cluster setting'
