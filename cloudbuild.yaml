@@ -9,5 +9,11 @@ steps:
   - id: 'docker build'
     name: 'gcr.io/cloud-builders/docker'
     args: [ 'build', '-t', 'gcr.io/$PROJECT_ID/$COMMIT_SHA', '.' ]
-  - name: 'gcr.io/$PROJECT_ID/$COMMIT_SHA'
-    args: ['run', 'busybox', 'echo', 'Hello, world!']
+  - id: 'publish'
+    name: 'gcr.io/cloud-builders/docker'
+    entrypoint: 'bash'
+    args: ['-C', 'docker push gcr.io/$PROJECT_ID/$COMMIT_SHA']
+
+#  - name: 'gcr.io/$PROJECT_ID/$COMMIT_SHA' RUN SPRING PROJECT #Spring project image를 바로 실행시킴
+
+timeout: 1600s
