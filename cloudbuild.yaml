@@ -24,10 +24,6 @@ steps:
     name: 'gcr.io/cloud-builders/docker'
     args: ['push', 'gcr.io/$PROJECT_ID/mainservice:$SHORT_SHA']
 
-#  - id : 'set project'
-#    name: 'gcr.io/cloud-builders/gcloud'
-#    args: ['config', 'set', 'project', 'springboot-deploy-test']
-
   - id: 'cluster setting'
     name: 'gcr.io/cloud-builders/gcloud'
     entrypoint: 'bash'
@@ -37,22 +33,12 @@ steps:
       - 'clusters'
       - 'get-credentials'
       - 'uplus-poc-test'
-      - '--project "springboot-deploy-test"'
-      - '--zone "asia-northeast1-a"'
+      - '--zone asia-northeast1-a'
 
-#   Deploy to GKE
-#  - id : 'deploy'
-#    name: 'gcr.io/cloud-builders/gke-deploy'
-#    args:
-#      - 'run'
-#      - '--expose=8080'
-#      - '--image=gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA'
-#      - '--location=asia-northeast1-a'
-#      - '--cluster=uplus-poc-test'
   - id : 'deploy'
     name: 'gcr.io/cloud-builders/gcloud'
     entrypoint: 'bash'
-    args: ['kubectl', 'create', 'deployment', 'hello-server', '--image=gcr.io/$PROJECT_ID/mainservice:$SHORT_SHA']
+    args: ['kubectl', 'create', 'deployment', 'main-back', '--image=gcr.io/$PROJECT_ID/mainservice:$SHORT_SHA']
 
 
 options:
