@@ -31,8 +31,8 @@ steps:
       - '-c'
       - |
         gcloud container clusters get-credentials uplus-poc-test --zone=asia-northeast1-a --project=springboot-deploy-test
-        kubectl create deployment mainbackservice --image=gcr.io/$PROJECT_ID/mainservice:$SHORT_SHA
-        kubectl expose deployment mainbackservice --type=LoadBalancer --port=80 --target-port=8080
+        kubectl create deployment test --image=gcr.io/$PROJECT_ID/mainservice:$SHORT_SHA
+        kubectl expose deployment test --type=LoadBalancer --port=80 --target-port=8080
         kubectl get pods
         kubectl get service mainbackservice
 
