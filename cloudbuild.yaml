@@ -24,13 +24,22 @@ steps:
     name: 'gcr.io/cloud-builders/docker'
     args: ['push', 'gcr.io/$PROJECT_ID/mainservice:$SHORT_SHA']
 
-  - id : 'set project'
-    name: 'gcr.io/cloud-builders/gcloud'
-    args: ['config', 'set', 'project', 'springboot-deploy-test']
+#  - id : 'set project'
+#    name: 'gcr.io/cloud-builders/gcloud'
+#    args: ['config', 'set', 'project', 'springboot-deploy-test']
 
   - id: 'cluster setting'
     name: 'gcr.io/cloud-builders/gcloud'
-    args: ['container', 'clusters', 'get-credentials', 'uplus-poc-test']
+    entrypoint: 'bash'
+    args:
+      - 'PROJECT=$$(gcloud config get-value core/project)'
+      - 'gcloud'
+      - 'container'
+      - 'clusters'
+      - 'get-credentials'
+      - 'uplus-poc-test'
+      - '--project "springboot-deploy-test"'
+      - '--zone ""'
 
 #   Deploy to GKE
 #  - id : 'deploy'
