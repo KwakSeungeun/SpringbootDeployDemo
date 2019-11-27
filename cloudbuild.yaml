@@ -24,6 +24,10 @@ steps:
     name: 'gcr.io/cloud-builders/docker'
     args: ['push', 'gcr.io/$PROJECT_ID/mainservice:$SHORT_SHA']
 
+  - id: 'cluster setting'
+    name: 'gcr.io/cloud-builders/gcloud'
+    args: ['container', 'clusters', 'get-credentials', 'uplus-poc-test']
+
 #   Deploy to GKE
 #  - id : 'deploy'
 #    name: 'gcr.io/cloud-builders/gke-deploy'
@@ -33,7 +37,6 @@ steps:
 #      - '--image=gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA'
 #      - '--location=asia-northeast1-a'
 #      - '--cluster=uplus-poc-test'
-
   - id : 'deploy'
     name: 'gcr.io/cloud-builders/gcloud'
     entrypoint: 'bash'
