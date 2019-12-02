@@ -9,16 +9,16 @@ import org.springframework.web.bind.annotation.RestController;
 @SpringBootApplication
 public class DemoApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(DemoApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(DemoApplication.class, args);
+    }
 
 }
 
 @RestController
-class IndexController{
-	@GetMapping("/")
-	public String index(){
-		return "<h1>hello :)</h1>";
-	}
+class IndexController {
+    @GetMapping("/")
+    public String index() {
+        return "<h1>hello :)</h1>";
+    }
 }
